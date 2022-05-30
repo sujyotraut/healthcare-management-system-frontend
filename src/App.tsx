@@ -6,6 +6,7 @@ import AddMedicinePage from './pages/AddMedicinePage';
 import AddStaffPage from './pages/AddStaffPage';
 import AddWardPage from './pages/AddWardPage';
 import HomePage from './pages/HomePage';
+import ListDoctorsPage from './pages/ListDoctorsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 
@@ -13,7 +14,7 @@ function App() {
   return (
     <>
       <MainNavbar />
-      <AddMedicinePage />
+      <ListDoctorsPage />
     </>
   );
 }
