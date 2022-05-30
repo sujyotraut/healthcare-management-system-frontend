@@ -1,5 +1,6 @@
 import React from 'react';
 import AddDoctorPage from './pages/AddDoctorPage';
+import AddMedicinePage from './pages/AddMedicinePage';
 import AddStaffPage from './pages/AddStaffPage';
 import AddWardPage from './pages/AddWardPage';
 import HomePage from './pages/HomePage';
@@ -9,7 +10,7 @@ import RegisterPage from './pages/RegisterPage';
 function App() {
   return (
     <div>
-      <AddDoctorPage />
+      <AddMedicinePage />
     </div>
   );
 }
