@@ -1,4 +1,6 @@
 import React from 'react';
+import { Container } from 'react-bootstrap';
+import MainNavbar from './components/MainNavbar';
 import AddDoctorPage from './pages/AddDoctorPage';
 import AddMedicinePage from './pages/AddMedicinePage';
 import AddStaffPage from './pages/AddStaffPage';
@@ -9,9 +11,10 @@ import RegisterPage from './pages/RegisterPage';
 
 function App() {
   return (
-    <div>
+    <>
+      <MainNavbar />
       <AddMedicinePage />
-    </div>
+    </>
   );
 }
 

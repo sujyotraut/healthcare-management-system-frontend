@@ -3,19 +3,6 @@ import { Container, Nav, Navbar, Image, Card, Button, Form, Row, Col } from 'rea
 
 const AddBedPage = () => {
   return (
-    <>
-      <Navbar bg='primary' variant='dark'>
-        <Container>
-          <Navbar.Brand href='#home'>Healthcare Management System</Navbar.Brand>
-          <Nav className=''>
-            <Nav.Link href='#home'>Home</Nav.Link>
-            <Nav.Link href='#login'>Login</Nav.Link>
-            <Nav.Link href='#signup'>Signup</Nav.Link>
-            <Nav.Link href='#about'>About Us</Nav.Link>
-            <Nav.Link href='#contact'>Contact Us</Nav.Link>
-          </Nav>
-        </Container>
-      </Navbar>
       <Container>
         <Form className='mt-5 mx-auto p-4' style={{ border: 'solid #f7f7f7', borderRadius: '1rem' }}>
           <h3 className='mb-4'>Bed</h3>
@@ -50,7 +37,6 @@ const AddBedPage = () => {
           </Button>
         </Form>
       </Container>
-    </>
   );
 };
 
