@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
 
-const DOCTORS = [
+const STAFF = [
   {
     id: '1',
     firstName: 'alex1',
@@ -59,38 +59,14 @@ const DOCTORS = [
   },
 ];
 
-const ListDoctorsPage = () => {
-  const [doctors, setDoctors] = useState(
-    DOCTORS.map((doctor) => ({ ...doctor, isChecked: false })).sort((a, b) =>
-      a.firstName.localeCompare(b.firstName)
-    )
-  );
-
-  const selectAll = (select: boolean) =>
-    setDoctors((prevDoctors) =>
-      prevDoctors
-        .map((doctor) => ({ ...doctor, isChecked: select }))
-        .sort((a, b) => a.firstName.localeCompare(b.firstName))
-    );
-
-  const select = (id: string, checked: boolean) =>
-    setDoctors((prevDoctors) => {
-      const doctor = prevDoctors.find((d) => d.id === id)!;
-      doctor.isChecked = checked;
-      const newDoctors = prevDoctors.filter((d) => d.id !== id);
-      return [...newDoctors, doctor].sort((a, b) => a.firstName.localeCompare(b.firstName));
-    });
-
+const ListStaffPage = () => {
   return (
     <Container>
       <Table striped bordered hover responsive className='mt-5'>
         <thead>
           <tr>
             <th>
-              <Form.Check
-                label='Select All'
-                onClick={(e) => (e.currentTarget.checked ? selectAll(true) : selectAll(false))}
-              />
+              <Form.Check label='Select All' />
             </th>
             <th>#</th>
             <th>First Name</th>
@@ -105,23 +81,20 @@ const ListDoctorsPage = () => {
           </tr>
         </thead>
         <tbody>
-          {doctors.map((doctor, i) => (
+          {STAFF.map((staff, i) => (
             <tr>
               <td>
-                <Form.Check
-                  onClick={(e) => select(doctor.id, e.currentTarget.checked)}
-                  checked={doctor.isChecked}
-                />
+                <Form.Check />
               </td>
               <td>{i + 1}</td>
-              <td>{doctor.firstName}</td>
-              <td>{doctor.lastName}</td>
-              <td>{doctor.email}</td>
-              <td>{doctor.contact}</td>
-              <td>{doctor.DOB}</td>
-              <td>{doctor.qualification}</td>
-              <td>{doctor.specilization}</td>
-              <td>{doctor.experience}</td>
+              <td>{staff.firstName}</td>
+              <td>{staff.lastName}</td>
+              <td>{staff.email}</td>
+              <td>{staff.contact}</td>
+              <td>{staff.DOB}</td>
+              <td>{staff.qualification}</td>
+              <td>{staff.specilization}</td>
+              <td>{staff.experience}</td>
               <td></td>
             </tr>
           ))}
@@ -131,4 +104,4 @@ const ListDoctorsPage = () => {
   );
 };
 
-export default ListDoctorsPage;
+export default ListStaffPage;

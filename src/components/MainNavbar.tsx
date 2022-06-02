@@ -20,32 +20,60 @@ const MainNavbar = () => {
                   <NavDropdown.Item as={Link} to='add-doctor'>
                     Add Doctor
                   </NavDropdown.Item>
-                  <NavDropdown.Item href='#'>List Doctor</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='list-doctors'>
+                    List Doctor
+                  </NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title='Staff'>
-                  <NavDropdown.Item href='#'>Add Staff</NavDropdown.Item>
-                  <NavDropdown.Item href='#'>List Staff</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='add-staff'>
+                    Add Staff
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='list-staff'>
+                    List Staff
+                  </NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title='Ward'>
-                  <NavDropdown.Item href='#'>Add Ward</NavDropdown.Item>
-                  <NavDropdown.Item href='#'>List Ward</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='add-ward'>
+                    Add Ward
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='list-wards'>
+                    List Ward
+                  </NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title='Room'>
-                  <NavDropdown.Item href='#'>Add Room</NavDropdown.Item>
-                  <NavDropdown.Item href='#'>List Room</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='add-room'>
+                    Add Room
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='list-rooms'>
+                    List Room
+                  </NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title='Bed'>
-                  <NavDropdown.Item href='#'>Add Bed</NavDropdown.Item>
-                  <NavDropdown.Item href='#'>List Bed</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='add-bed'>
+                    Add Bed
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='list-beds'>
+                    List Bed
+                  </NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title='Medicine'>
-                  <NavDropdown.Item href='#'>Add Medicine</NavDropdown.Item>
-                  <NavDropdown.Item href='#'>List Medicine</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='add-medicine'>
+                    Add Medicine
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='list-medicines'>
+                    List Medicine
+                  </NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link href='#'>Insurance</Nav.Link>
+                <Nav.Link as={Link} to='list-insurance'>
+                  Insurance
+                </Nav.Link>
                 <NavDropdown title='Profile'>
-                  <NavDropdown.Item href='#'>Add</NavDropdown.Item>
-                  <NavDropdown.Item href='#'>List</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to=''>
+                    Add
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='login'>
+                    logout
+                  </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>
@@ -56,20 +84,34 @@ const MainNavbar = () => {
       return (
         <Navbar bg='primary' variant='dark' expand='lg'>
           <Container>
-            <Navbar.Brand href='#home'>Healthcare Management System</Navbar.Brand>
+            <Navbar.Brand>Healthcare Management System</Navbar.Brand>
             <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
               <Nav className='ms-auto'>
-                <Nav.Link href='#home'>Home</Nav.Link>
+                <Nav.Link as={Link} to='/'>
+                  Home
+                </Nav.Link>
                 <NavDropdown title='Schedule Time'>
-                  <NavDropdown.Item href='#'>Add Schedule</NavDropdown.Item>
-                  <NavDropdown.Item href='#'>List Schedule</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='add-schedule'>
+                    Add Schedule
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='list-schedules'>
+                    List Schedule
+                  </NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link href='#home'>Prescription</Nav.Link>
-                <Nav.Link href='#home'>Test Report</Nav.Link>
+                <Nav.Link as={Link} to='list-prescriptions'>
+                  Prescription
+                </Nav.Link>
+                <Nav.Link as={Link} to='list-test-reports'>
+                  Test Report
+                </Nav.Link>
                 <NavDropdown title='Profile'>
-                  <NavDropdown.Item href='#'>Add</NavDropdown.Item>
-                  <NavDropdown.Item href='#'>List</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to=''>
+                    eif
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='login'>
+                    logout
+                  </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>
@@ -80,32 +122,111 @@ const MainNavbar = () => {
       return (
         <Navbar bg='primary' variant='dark' expand='lg'>
           <Container>
-            <Navbar.Brand href='#home'>Healthcare Management System</Navbar.Brand>
+            <Navbar.Brand>Healthcare Management System</Navbar.Brand>
             <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
               <Nav className='ms-auto'>
-                <Nav.Link href='#home'>Home</Nav.Link>
-                <Nav.Link href='#home'>Doctor</Nav.Link>
+                <Nav.Link as={Link} to='/'>
+                  Home
+                </Nav.Link>
+                <Nav.Link as={Link} to='list-doctors'>
+                  Doctor
+                </Nav.Link>
                 <NavDropdown title='Patient'>
-                  <NavDropdown.Item href='#'>Admit Patient</NavDropdown.Item>
-                  <NavDropdown.Item href='#'>Patient List</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='admit-patient'>
+                    Admit Patient
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='list-patients'>
+                    Patient List
+                  </NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title='Schedule Time'>
-                  <NavDropdown.Item href='#'>Add Schedule</NavDropdown.Item>
-                  <NavDropdown.Item href='#'>List Schedule</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='add-schedule'>
+                    Add Schedule
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='list-schedules'>
+                    List Schedule
+                  </NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title='Bill'>
-                  <NavDropdown.Item href='#'>Add Bill</NavDropdown.Item>
-                  <NavDropdown.Item href='#'>List Bill</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='add-bill'>
+                    Add Bill
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='list-bills'>
+                    List Bill
+                  </NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title='Test Report'>
-                  <NavDropdown.Item href='#'>Add Test Report</NavDropdown.Item>
-                  <NavDropdown.Item href='#'>List Test Report</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='add-test-report'>
+                    Add Test Report
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='list-test-reports'>
+                    List Test Report
+                  </NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link href='#'>Insurance</Nav.Link>
+                <Nav.Link as={Link} to='list-isurance'>
+                  Insurance
+                </Nav.Link>
                 <NavDropdown title='Profile'>
-                  <NavDropdown.Item href='#'>Add</NavDropdown.Item>
-                  <NavDropdown.Item href='#'>List</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to=''>
+                    Add
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='login'>
+                    logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+      );
+    case 'patient':
+      return (
+        <Navbar bg='primary' variant='dark' expand='lg'>
+          <Container>
+            <Navbar.Brand>Healthcare Management System</Navbar.Brand>
+            <Navbar.Toggle aria-controls='basic-navbar-nav' />
+            <Navbar.Collapse id='basic-navbar-nav'>
+              <Nav className='ms-auto'>
+                <Nav.Link as={Link} to='/'>
+                  Home
+                </Nav.Link>
+                <Nav.Link as={Link} to='list-doctors'>
+                  Doctor
+                </Nav.Link>
+                <Nav.Link as={Link} to='list-schedules'>
+                  Doctor Timing
+                </Nav.Link>
+                <Nav.Link as={Link} to='list-appointments'>
+                  Appointments
+                </Nav.Link>
+                <Nav.Link as={Link} to='list-prescriptions'>
+                  Prescription
+                </Nav.Link>
+                <Nav.Link as={Link} to='list-medicines'>
+                  Medicine
+                </Nav.Link>
+                <Nav.Link as={Link} to='list-bills'>
+                  Bills
+                </Nav.Link>
+                <NavDropdown title='Insurance'>
+                  <NavDropdown.Item as={Link} to='add-insurance'>
+                    Add Insurance
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='list-insurance'>
+                    List Insurance
+                  </NavDropdown.Item>
+                </NavDropdown>
+                <Nav.Link as={Link} to='list-test-reports'>
+                  Test Report
+                </Nav.Link>
+                <NavDropdown title='Profile'>
+                  <NavDropdown.Item as={Link} to=''>
+                    Add
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='logout'>
+                    logout
+                  </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>
@@ -116,26 +237,25 @@ const MainNavbar = () => {
       return (
         <Navbar bg='primary' variant='dark' expand='lg'>
           <Container>
-            <Navbar.Brand href='#home'>Healthcare Management System</Navbar.Brand>
+            <Navbar.Brand>Healthcare Management System</Navbar.Brand>
             <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
               <Nav className='ms-auto'>
-                <Nav.Link href='#home'>Home</Nav.Link>
-                <Nav.Link href='#'>Doctor</Nav.Link>
-                <Nav.Link href='#'>Doctor Timing</Nav.Link>
-                <Nav.Link href='#'>Appointments</Nav.Link>
-                <Nav.Link href='#'>Prescription</Nav.Link>
-                <Nav.Link href='#'>Medicine</Nav.Link>
-                <Nav.Link href='#'>Bills</Nav.Link>
-                <NavDropdown title='Insurance'>
-                  <NavDropdown.Item href='#'>Add Insurance</NavDropdown.Item>
-                  <NavDropdown.Item href='#'>List Insurance</NavDropdown.Item>
-                </NavDropdown>
-                <Nav.Link href='#'>Test Report</Nav.Link>
-                <NavDropdown title='Profile'>
-                  <NavDropdown.Item href='#'>Add</NavDropdown.Item>
-                  <NavDropdown.Item href='#'>List</NavDropdown.Item>
-                </NavDropdown>
+                <Nav.Link as={Link} to='/'>
+                  Home
+                </Nav.Link>
+                <Nav.Link as={Link} to='login'>
+                  Login
+                </Nav.Link>
+                <Nav.Link as={Link} to='register'>
+                  Signup
+                </Nav.Link>
+                <Nav.Link as={Link} to='about-us'>
+                  About Us
+                </Nav.Link>
+                <Nav.Link as={Link} to='contact-us'>
+                  Contact Us
+                </Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
