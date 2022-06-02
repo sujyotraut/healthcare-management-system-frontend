@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
 
-const WARDS = [
+const Medicines = [
   {
     id: '1',
-    name: 'srggr',
-    description: 'fef',
+    name: '101',
+    companyName: '2',
+    price: '2',
+    status: '2',
+    description: '',
   },
   {
     id: '2',
-    name: 'efef',
-    description: 'fef',
+    name: '101',
+    companyName: '2',
+    price: '2',
+    status: '2',
+    description: '',
   },
 ];
 
-const ListWardsPage = () => {
+const ListMediciensPage = () => {
   return (
     <Container>
       <Table striped bordered hover responsive className='mt-5'>
@@ -25,19 +31,25 @@ const ListWardsPage = () => {
             </th>
             <th>#</th>
             <th>Name</th>
+            <th>Company Name</th>
+            <th>Price</th>
+            <th>Status</th>
             <th>Description</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {WARDS.map((ward, i) => (
+          {Medicines.map((medicine, i) => (
             <tr>
               <td>
                 <Form.Check />
               </td>
               <td>{i + 1}</td>
-              <td>{ward.name}</td>
-              <td>{ward.description}</td>
+              <td>{medicine.name}</td>
+              <td>{medicine.companyName}</td>
+              <td>{medicine.price}</td>
+              <td>{medicine.status}</td>
+              <td>{medicine.description}</td>
               <td></td>
             </tr>
           ))}
@@ -47,4 +59,4 @@ const ListWardsPage = () => {
   );
 };
 
-export default ListWardsPage;
+export default ListMediciensPage;

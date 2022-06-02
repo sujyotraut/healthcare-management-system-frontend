@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
 
-const WARDS = [
+const Rooms = [
   {
     id: '1',
-    name: 'srggr',
-    description: 'fef',
+    wardName: '2',
+    roomNo: '101',
+    description: '',
   },
   {
     id: '2',
-    name: 'efef',
-    description: 'fef',
+    wardName: '2',
+    roomNo: '101',
+    description: '',
   },
 ];
 
-const ListWardsPage = () => {
+const ListRoomsPage = () => {
   return (
     <Container>
       <Table striped bordered hover responsive className='mt-5'>
@@ -24,20 +26,22 @@ const ListWardsPage = () => {
               <Form.Check label='Select All' />
             </th>
             <th>#</th>
-            <th>Name</th>
+            <th>Ward Name</th>
+            <th>Room No</th>
             <th>Description</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {WARDS.map((ward, i) => (
+          {Rooms.map((room, i) => (
             <tr>
               <td>
                 <Form.Check />
               </td>
               <td>{i + 1}</td>
-              <td>{ward.name}</td>
-              <td>{ward.description}</td>
+              <td>{room.wardName}</td>
+              <td>{room.roomNo}</td>
+              <td>{room.description}</td>
               <td></td>
             </tr>
           ))}
@@ -47,4 +51,4 @@ const ListWardsPage = () => {
   );
 };
 
-export default ListWardsPage;
+export default ListRoomsPage;
