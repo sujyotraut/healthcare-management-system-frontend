@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation, useMatch } from 'react-router-dom';
 import MainNavbar from './components/MainNavbar';
 import AddBedPage from './pages/AddBedPage';
 import AddDoctorPage from './pages/AddDoctorPage';
@@ -17,11 +17,17 @@ import NotFoundPage from './pages/NotFoundPage';
 import RegisterPage from './pages/RegisterPage';
 import ListRoomsPage from './pages/ListRoomsPage';
 import ListMediciensPage from './pages/ListMediciensPage';
+import Breadcrumb from 'react-bootstrap/esm/Breadcrumb';
+import { Container } from 'react-bootstrap';
+import { useBreadcrumb } from './hooks/useBreadcrumb';
 
 function App() {
+  const breadcrumb = useBreadcrumb();
+  
   return (
     <>
       <MainNavbar />
+      {breadcrumb}
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='login' element={<LoginPage />} />

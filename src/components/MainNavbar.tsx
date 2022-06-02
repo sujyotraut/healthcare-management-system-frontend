@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Nav, Navbar, Image, NavDropdown } from 'react-bootstrap';
+import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const MainNavbar = () => {
@@ -9,13 +9,15 @@ const MainNavbar = () => {
       return (
         <Navbar bg='primary' variant='dark' expand='lg'>
           <Container>
-            <Navbar.Brand>Healthcare Management System</Navbar.Brand>
+            <Navbar.Brand as={Link} to='/'>
+              Healthcare Management System
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
               <Nav className='ms-auto'>
-                <Nav.Link as={Link} to='/'>
+                {/* <Nav.Link as={Link} to='/'>
                   Home
-                </Nav.Link>
+                </Nav.Link> */}
                 <NavDropdown title='Doctor'>
                   <NavDropdown.Item as={Link} to='add-doctor'>
                     Add Doctor
@@ -84,13 +86,15 @@ const MainNavbar = () => {
       return (
         <Navbar bg='primary' variant='dark' expand='lg'>
           <Container>
-            <Navbar.Brand>Healthcare Management System</Navbar.Brand>
+            <Navbar.Brand as={Link} to='/'>
+              Healthcare Management System
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
               <Nav className='ms-auto'>
-                <Nav.Link as={Link} to='/'>
+                {/* <Nav.Link as={Link} to='/'>
                   Home
-                </Nav.Link>
+                </Nav.Link> */}
                 <NavDropdown title='Schedule Time'>
                   <NavDropdown.Item as={Link} to='add-schedule'>
                     Add Schedule
@@ -122,13 +126,15 @@ const MainNavbar = () => {
       return (
         <Navbar bg='primary' variant='dark' expand='lg'>
           <Container>
-            <Navbar.Brand>Healthcare Management System</Navbar.Brand>
+            <Navbar.Brand as={Link} to='/'>
+              Healthcare Management System
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
               <Nav className='ms-auto'>
-                <Nav.Link as={Link} to='/'>
+                {/* <Nav.Link as={Link} to='/'>
                   Home
-                </Nav.Link>
+                </Nav.Link> */}
                 <Nav.Link as={Link} to='list-doctors'>
                   Doctor
                 </Nav.Link>
@@ -184,13 +190,15 @@ const MainNavbar = () => {
       return (
         <Navbar bg='primary' variant='dark' expand='lg'>
           <Container>
-            <Navbar.Brand>Healthcare Management System</Navbar.Brand>
+            <Navbar.Brand as={Link} to='/'>
+              Healthcare Management System
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
               <Nav className='ms-auto'>
-                <Nav.Link as={Link} to='/'>
+                {/* <Nav.Link as={Link} to='/'>
                   Home
-                </Nav.Link>
+                </Nav.Link> */}
                 <Nav.Link as={Link} to='list-doctors'>
                   Doctor
                 </Nav.Link>
@@ -237,13 +245,15 @@ const MainNavbar = () => {
       return (
         <Navbar bg='primary' variant='dark' expand='lg'>
           <Container>
-            <Navbar.Brand>Healthcare Management System</Navbar.Brand>
+            <Navbar.Brand as={Link} to='/'>
+              Healthcare Management System
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
               <Nav className='ms-auto'>
-                <Nav.Link as={Link} to='/'>
+                {/* <Nav.Link as={Link} to='/'>
                   Home
-                </Nav.Link>
+                </Nav.Link> */}
                 <Nav.Link as={Link} to='login'>
                   Login
                 </Nav.Link>

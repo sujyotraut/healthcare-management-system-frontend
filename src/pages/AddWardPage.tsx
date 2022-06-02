@@ -22,7 +22,7 @@ const AddWardPage = () => {
             </Col>
           </Row>
           <Button className='mt-4' variant='primary' type='submit'>
-            Login
+            Save
           </Button>
         </Form>
       </Container>
