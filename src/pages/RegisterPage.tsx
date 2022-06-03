@@ -4,7 +4,7 @@ import { Container, Nav, Navbar, Image, Card, Button, Form, Row, Col } from 'rea
 const RegisterPage = () => {
   return (
       <Container>
-        <Form className='mt-5 p-4' style={{ border: 'solid #f7f7f7', borderRadius: '1rem' }}>
+        <Form className='mx-auto my-5 p-4' style={{ border: 'solid #f7f7f7', borderRadius: '1rem' }}>
           <h3 className='mb-4'>Patient Registration</h3>
           <hr />
           <Row className='gy-2' xxs={1} xs={1} sm={1} md={1} lg={2} xl={2} xxl={2}>

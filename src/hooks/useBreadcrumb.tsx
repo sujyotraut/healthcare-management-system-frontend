@@ -8,13 +8,16 @@ const pathTitles = new Map([
   ['/add-staff', 'Staff'],
   ['/list-staff', 'Staff List'],
   ['/add-ward', 'Ward'],
-  ['/list-wards', 'List Wards'],
+  ['/list-wards', 'Wards List'],
   ['/add-room', 'Room'],
-  ['/list-rooms', 'List Rooms'],
+  ['/list-rooms', 'Rooms List'],
   ['/add-bed', 'Bed'],
-  ['/list-beds', 'List Beds'],
+  ['/list-beds', 'Beds List'],
   ['/add-medicine', 'Medicine'],
-  ['/list-medicines', 'List Medicines'],
+  ['/list-medicines', 'Medicines List'],
+  ['/add-schedule', 'Schedule'],
+  ['/list-schedules', 'Schedules List'],
+  ['/list-prescriptions', 'Prescriptions List'],
 ]);
 
 export const useBreadcrumb = () => {

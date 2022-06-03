@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, useLocation, useMatch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import MainNavbar from './components/MainNavbar';
 import AddBedPage from './pages/AddBedPage';
 import AddDoctorPage from './pages/AddDoctorPage';
@@ -17,13 +17,14 @@ import NotFoundPage from './pages/NotFoundPage';
 import RegisterPage from './pages/RegisterPage';
 import ListRoomsPage from './pages/ListRoomsPage';
 import ListMediciensPage from './pages/ListMediciensPage';
-import Breadcrumb from 'react-bootstrap/esm/Breadcrumb';
-import { Container } from 'react-bootstrap';
 import { useBreadcrumb } from './hooks/useBreadcrumb';
+import AddSchedulePage from './pages/AddSchedulePage';
+import ListSchedulesPage from './pages/ListSchedulesPage';
+import ListAppointmentsPage from './pages/ListAppointmentsPage';
 
 function App() {
   const breadcrumb = useBreadcrumb();
-  
+
   return (
     <>
       <MainNavbar />
@@ -44,6 +45,9 @@ function App() {
         <Route path='list-beds' element={<ListBedsPage />} />
         <Route path='add-medicine' element={<AddMedicinePage />} />
         <Route path='list-medicines' element={<ListMediciensPage />} />
+        <Route path='add-schedule' element={<AddSchedulePage />} />
+        <Route path='list-schedules' element={<ListSchedulesPage />} />
+        {/* <Route path='list-prescriptions' element={<ListPrescriptonsPage />} /> */}
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </>

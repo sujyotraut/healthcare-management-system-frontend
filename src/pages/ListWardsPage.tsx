@@ -17,7 +17,7 @@ const WARDS = [
 const ListWardsPage = () => {
   return (
     <Container>
-      <Table striped bordered hover responsive className='mt-5'>
+      <Table striped bordered hover responsive className='mx-auto my-5'>
         <thead>
           <tr>
             <th>

@@ -3,7 +3,7 @@ import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const MainNavbar = () => {
-  const user: string = 'admin';
+  const user: string = 'doctor';
   switch (user) {
     case 'admin':
       return (
@@ -100,7 +100,7 @@ const MainNavbar = () => {
                     Add Schedule
                   </NavDropdown.Item>
                   <NavDropdown.Item as={Link} to='list-schedules'>
-                    List Schedule
+                    List Schedules
                   </NavDropdown.Item>
                 </NavDropdown>
                 <Nav.Link as={Link} to='list-prescriptions'>
