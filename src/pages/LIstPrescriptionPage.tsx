@@ -3,20 +3,18 @@ import { Container, Form, Table } from 'react-bootstrap';
 import { MyContext } from '../App';
 import fetchAPI from '../utls/fetchAPI';
 
-interface Medicine {
+interface Prescription {
   id: string;
   name: string;
-  companyName: string;
-  price: number;
-  status: string;
-  description: string;
+  date: string;
+  prescription: number;
 }
 
-const ListMediciensPage = () => {
-  const [medicines, setMedicines] = useState<Medicine[]>([]);
+const ListPrescriptionPage = () => {
+  const [prescriptions, setPrescriptions] = useState<Prescription[]>([]);
 
   useEffect(() => {
-    fetchAPI('/medicines').then((resJson) => setMedicines(resJson.data.medicines));
+    fetchAPI('/prescriptions').then((resJson) => setPrescriptions(resJson.data.prescriptions));
   }, []);
 
   return (
@@ -28,26 +26,22 @@ const ListMediciensPage = () => {
               <Form.Check label='Select All' />
             </th>
             <th>#</th>
+            <th>Date</th>
             <th>Name</th>
-            <th>Company Name</th>
-            <th>Price</th>
-            <th>Status</th>
-            <th>Description</th>
+            <th>Prescription</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {medicines.map((medicine, i) => (
+          {prescriptions.map((prescription, i) => (
             <tr>
               <td>
                 <Form.Check />
               </td>
               <td>{i + 1}</td>
-              <td>{medicine.name}</td>
-              <td>{medicine.companyName}</td>
-              <td>{medicine.price}</td>
-              <td>{medicine.status}</td>
-              <td>{medicine.description}</td>
+              <td>{prescription.date}</td>
+              <td>{prescription.name}</td>
+              <td>{prescription.prescription}</td>
               <td></td>
             </tr>
           ))}
@@ -57,4 +51,4 @@ const ListMediciensPage = () => {
   );
 };
 
-export default ListMediciensPage;
+export default ListPrescriptionPage;

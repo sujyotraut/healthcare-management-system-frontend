@@ -1,65 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
+import fetchAPI from '../utls/fetchAPI';
 
-const STAFF = [
-  {
-    id: '1',
-    firstName: 'alex1',
-    lastName: 'adams',
-    email: 'alexadams@gmail.com',
-    contact: 9542364568,
-    DOB: '05/10/2000',
-    qualification: 'MBBS',
-    specilization: null,
-    experience: null,
-  },
-  {
-    id: '2',
-    firstName: 'alex2',
-    lastName: 'adams',
-    email: 'alexadams@gmail.com',
-    contact: 9542364568,
-    DOB: '05/10/2000',
-    qualification: 'MBBS',
-    specilization: null,
-    experience: null,
-  },
-  {
-    id: '3',
-    firstName: 'alex3',
-    lastName: 'adams',
-    email: 'alexadams@gmail.com',
-    contact: 9542364568,
-    DOB: '05/10/2000',
-    qualification: 'MBBS',
-    specilization: null,
-    experience: null,
-  },
-  {
-    id: '4',
-    firstName: 'alex4',
-    lastName: 'adams',
-    email: 'alexadams@gmail.com',
-    contact: 9542364568,
-    DOB: '05/10/2000',
-    qualification: 'MBBS',
-    specilization: null,
-    experience: null,
-  },
-  {
-    id: '5',
-    firstName: 'alex5',
-    lastName: 'adams',
-    email: 'alexadams@gmail.com',
-    contact: 9542364568,
-    DOB: '05/10/2000',
-    qualification: 'MBBS',
-    specilization: null,
-    experience: null,
-  },
-];
+interface Staff {
+  firstName: string;
+  lastName: string;
+  email: string;
+  contact: string;
+  dateOfBirth: string;
+  experience: string;
+  qualification: string;
+}
 
 const ListStaffPage = () => {
+  const [staffs, setStaffs] = useState<Staff[]>([]);
+
+  useEffect(() => {
+    fetchAPI('/staffs').then((resJson) => setStaffs(resJson.data.staffs));
+  }, []);
+
   return (
     <Container>
       <Table striped bordered hover responsive className='mx-auto my-5'>
@@ -75,13 +34,12 @@ const ListStaffPage = () => {
             <th>Contact No.</th>
             <th>DOB</th>
             <th>Qualification</th>
-            <th>Specialization</th>
             <th>Experience</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {STAFF.map((staff, i) => (
+          {staffs.map((staff, i) => (
             <tr>
               <td>
                 <Form.Check />
@@ -91,9 +49,8 @@ const ListStaffPage = () => {
               <td>{staff.lastName}</td>
               <td>{staff.email}</td>
               <td>{staff.contact}</td>
-              <td>{staff.DOB}</td>
+              <td>{staff.dateOfBirth}</td>
               <td>{staff.qualification}</td>
-              <td>{staff.specilization}</td>
               <td>{staff.experience}</td>
               <td></td>
             </tr>

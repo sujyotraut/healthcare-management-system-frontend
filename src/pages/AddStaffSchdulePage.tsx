@@ -3,22 +3,24 @@ import { Container, Nav, Navbar, Image, Card, Button, Form, Row, Col } from 'rea
 import { MyContext } from '../App';
 import fetchAPI from '../utls/fetchAPI';
 
-const AddPrescriptionPage = () => {
-  const [name, setName] = useState('');
+const AddStaffSchedulePage = () => {
   const [date, setDate] = useState('');
-  const [prescription, setPrescription] = useState('');
+  const [timing, setTiming] = useState('');
+  const [ward, setWard] = useState('');
+  const [roomNo, setRoomNo] = useState('');
   const { showAlert } = useContext(MyContext);
 
   const submitHandler: FormEventHandler = async (e) => {
     e.preventDefault();
-    const resJson = await fetchAPI('/prescription', 'PUT', {
-      name,
+    const resJson = await fetchAPI('/staff-schedule', 'PUT', {
       date,
-      prescription,
+      timing,
+      ward,
+      roomNo,
     });
 
     if (resJson.status === 'success') {
-      showAlert('Prescription Added To the List');
+      showAlert('Schedule Added To the List');
     } else {
       showAlert(resJson.message);
     }
@@ -31,7 +33,7 @@ const AddPrescriptionPage = () => {
         className='mx-auto my-5 p-4'
         style={{ border: 'solid #f7f7f7', borderRadius: '1rem' }}
       >
-        <h3 className='mb-4'>Prescription</h3>
+        <h3 className='mb-4'>Schedule</h3>
         <hr />
         <Row className='gy-2' xxs={1} xs={1} sm={1} md={1} lg={2} xl={2} xxl={2}>
           <Col>
@@ -42,20 +44,20 @@ const AddPrescriptionPage = () => {
           </Col>
           <Col>
             <Form.Group>
-              <Form.Label>Name</Form.Label>
-              <Form.Control value={name} onChange={(e) => setName(e.currentTarget.value)} required type='date' />
+              <Form.Label>Timing</Form.Label>
+              <Form.Control value={timing} onChange={(e) => setTiming(e.currentTarget.value)} required type='text' />
             </Form.Group>
           </Col>
-          <Col xxs={12} xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
+          <Col>
             <Form.Group>
-              <Form.Label>Prescription</Form.Label>
-              <Form.Control
-                value={prescription}
-                onChange={(e) => setPrescription(e.currentTarget.value)}
-                required
-                type='text'
-                as='textarea'
-              />
+              <Form.Label>Ward</Form.Label>
+              <Form.Control value={ward} onChange={(e) => setWard(e.currentTarget.value)} required type='text' />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group>
+              <Form.Label>Room No</Form.Label>
+              <Form.Control value={roomNo} onChange={(e) => setRoomNo(e.currentTarget.value)} required type='text' />
             </Form.Group>
           </Col>
         </Row>
@@ -67,4 +69,4 @@ const AddPrescriptionPage = () => {
   );
 };
 
-export default AddPrescriptionPage;
+export default AddStaffSchedulePage;

@@ -3,20 +3,20 @@ import { Container, Form, Table } from 'react-bootstrap';
 import { MyContext } from '../App';
 import fetchAPI from '../utls/fetchAPI';
 
-interface Medicine {
+interface Insurance {
   id: string;
   name: string;
   companyName: string;
-  price: number;
-  status: string;
-  description: string;
+  amount: number;
+  patientName: string;
+  endDate: string;
 }
 
-const ListMediciensPage = () => {
-  const [medicines, setMedicines] = useState<Medicine[]>([]);
+const ListInsurancePage = () => {
+  const [insurances, setInsurances] = useState<Insurance[]>([]);
 
   useEffect(() => {
-    fetchAPI('/medicines').then((resJson) => setMedicines(resJson.data.medicines));
+    fetchAPI('/insurances').then((resJson) => setInsurances(resJson.data.insurances));
   }, []);
 
   return (
@@ -30,24 +30,24 @@ const ListMediciensPage = () => {
             <th>#</th>
             <th>Name</th>
             <th>Company Name</th>
-            <th>Price</th>
-            <th>Status</th>
-            <th>Description</th>
+            <th>Patient Name</th>
+            <th>Amount</th>
+            <th>End Date</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {medicines.map((medicine, i) => (
+          {insurances.map((insurance, i) => (
             <tr>
               <td>
                 <Form.Check />
               </td>
               <td>{i + 1}</td>
-              <td>{medicine.name}</td>
-              <td>{medicine.companyName}</td>
-              <td>{medicine.price}</td>
-              <td>{medicine.status}</td>
-              <td>{medicine.description}</td>
+              <td>{insurance.name}</td>
+              <td>{insurance.companyName}</td>
+              <td>{insurance.patientName}</td>
+              <td>{insurance.amount}</td>
+              <td>{insurance.endDate}</td>
               <td></td>
             </tr>
           ))}
@@ -57,4 +57,4 @@ const ListMediciensPage = () => {
   );
 };
 
-export default ListMediciensPage;
+export default ListInsurancePage;

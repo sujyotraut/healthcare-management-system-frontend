@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/esm/Container';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const pathTitles = new Map([
+  ['/register', 'Register'],
   ['/add-doctor', 'Doctor'],
   ['/list-doctors', 'Doctors List'],
   ['/add-staff', 'Staff'],
@@ -15,12 +16,12 @@ const pathTitles = new Map([
   ['/list-beds', 'Beds List'],
   ['/add-medicine', 'Medicine'],
   ['/list-medicines', 'Medicines List'],
-  ['/add-schedule', 'Schedule'],
-  ['/list-schedules', 'Schedules List'],
+  ['/add-doctor-schedule', 'Schedule'],
+  ['/list-doctor-schedules', 'Schedules List'],
   ['/list-prescriptions', 'Prescriptions List'],
 ]);
 
-export const useBreadcrumb = () => {
+const useBreadcrumb = () => {
   const loc = useLocation();
   const navigate = useNavigate()
 
@@ -35,3 +36,5 @@ export const useBreadcrumb = () => {
     </Container>
   );
 };
+
+export default useBreadcrumb;

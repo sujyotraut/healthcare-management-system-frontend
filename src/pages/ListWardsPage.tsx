@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
-
-const WARDS = [
-  {
-    id: '1',
-    name: 'srggr',
-    description: 'fef',
-  },
-  {
-    id: '2',
-    name: 'efef',
-    description: 'fef',
-  },
-];
+import fetchAPI from '../utls/fetchAPI';
 
 const ListWardsPage = () => {
+  const [wards, setWards] = useState<{ id: string; name: string; description: string }[]>([]);
+
+  useEffect(() => {
+    fetchAPI('/wards').then((resJson) => setWards(resJson.data.wards));
+  }, []);
+
   return (
     <Container>
       <Table striped bordered hover responsive className='mx-auto my-5'>
@@ -30,7 +24,7 @@ const ListWardsPage = () => {
           </tr>
         </thead>
         <tbody>
-          {WARDS.map((ward, i) => (
+          {wards.map((ward, i) => (
             <tr>
               <td>
                 <Form.Check />

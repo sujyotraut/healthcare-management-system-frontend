@@ -1,10 +1,51 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { MyContext, User } from '../App';
 
 const MainNavbar = () => {
-  const user: string = 'doctor';
-  switch (user) {
+  console.log('render');
+  const { user, setUser } = useContext(MyContext);
+  const navigate = useNavigate();
+  const logoutHandler = () => {
+    localStorage.removeItem('accessToken');
+    setUser(null);
+    navigate('/');
+  };
+
+  if (!user) {
+    return (
+      <Navbar bg='primary' variant='dark' expand='lg'>
+        <Container>
+          <Navbar.Brand as={Link} to='/'>
+            Healthcare Management System
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls='basic-navbar-nav' />
+          <Navbar.Collapse id='basic-navbar-nav'>
+            <Nav className='ms-auto'>
+              {/* <Nav.Link as={Link} to='/'>
+                  Home
+                </Nav.Link> */}
+              <Nav.Link as={Link} to='login'>
+                Login
+              </Nav.Link>
+              <Nav.Link as={Link} to='register'>
+                Signup
+              </Nav.Link>
+              <Nav.Link as={Link} to='about-us'>
+                About Us
+              </Nav.Link>
+              <Nav.Link as={Link} to='contact-us'>
+                Contact Us
+              </Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    );
+  }
+
+  switch (user.role) {
     case 'admin':
       return (
         <Navbar bg='primary' variant='dark' expand='lg'>
@@ -69,13 +110,8 @@ const MainNavbar = () => {
                 <Nav.Link as={Link} to='list-insurance'>
                   Insurance
                 </Nav.Link>
-                <NavDropdown title='Profile'>
-                  <NavDropdown.Item as={Link} to=''>
-                    Add
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to='login'>
-                    logout
-                  </NavDropdown.Item>
+                <NavDropdown title={`${user.firstName} (${user.role})`}>
+                  <NavDropdown.Item onClick={logoutHandler}>logout</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>
@@ -96,10 +132,10 @@ const MainNavbar = () => {
                   Home
                 </Nav.Link> */}
                 <NavDropdown title='Schedule Time'>
-                  <NavDropdown.Item as={Link} to='add-schedule'>
+                  <NavDropdown.Item as={Link} to='add-doctor-schedule'>
                     Add Schedule
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to='list-schedules'>
+                  <NavDropdown.Item as={Link} to='list-doctor-schedules'>
                     List Schedules
                   </NavDropdown.Item>
                 </NavDropdown>
@@ -109,13 +145,8 @@ const MainNavbar = () => {
                 <Nav.Link as={Link} to='list-test-reports'>
                   Test Report
                 </Nav.Link>
-                <NavDropdown title='Profile'>
-                  <NavDropdown.Item as={Link} to=''>
-                    eif
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to='login'>
-                    logout
-                  </NavDropdown.Item>
+                <NavDropdown title={`${user.firstName} (${user.role})`}>
+                  <NavDropdown.Item onClick={logoutHandler}>logout</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>
@@ -147,10 +178,10 @@ const MainNavbar = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title='Schedule Time'>
-                  <NavDropdown.Item as={Link} to='add-schedule'>
+                  <NavDropdown.Item as={Link} to='add-staff-schedule'>
                     Add Schedule
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to='list-schedules'>
+                  <NavDropdown.Item as={Link} to='list-staff-schedules'>
                     List Schedule
                   </NavDropdown.Item>
                 </NavDropdown>
@@ -173,13 +204,8 @@ const MainNavbar = () => {
                 <Nav.Link as={Link} to='list-isurance'>
                   Insurance
                 </Nav.Link>
-                <NavDropdown title='Profile'>
-                  <NavDropdown.Item as={Link} to=''>
-                    Add
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to='login'>
-                    logout
-                  </NavDropdown.Item>
+                <NavDropdown title={`${user.firstName} (${user.role})`}>
+                  <NavDropdown.Item onClick={logoutHandler}>logout</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>
@@ -228,13 +254,8 @@ const MainNavbar = () => {
                 <Nav.Link as={Link} to='list-test-reports'>
                   Test Report
                 </Nav.Link>
-                <NavDropdown title='Profile'>
-                  <NavDropdown.Item as={Link} to=''>
-                    Add
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to='logout'>
-                    logout
-                  </NavDropdown.Item>
+                <NavDropdown title={`${user.firstName} (${user.role})`}>
+                  <NavDropdown.Item onClick={logoutHandler}>logout</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>
@@ -254,18 +275,38 @@ const MainNavbar = () => {
                 {/* <Nav.Link as={Link} to='/'>
                   Home
                 </Nav.Link> */}
-                <Nav.Link as={Link} to='login'>
-                  Login
+                <Nav.Link as={Link} to='list-doctors'>
+                  Doctor
                 </Nav.Link>
-                <Nav.Link as={Link} to='register'>
-                  Signup
+                <Nav.Link as={Link} to='list-schedules'>
+                  Doctor Timing
                 </Nav.Link>
-                <Nav.Link as={Link} to='about-us'>
-                  About Us
+                <Nav.Link as={Link} to='list-appointments'>
+                  Appointments
                 </Nav.Link>
-                <Nav.Link as={Link} to='contact-us'>
-                  Contact Us
+                <Nav.Link as={Link} to='list-prescriptions'>
+                  Prescription
                 </Nav.Link>
+                <Nav.Link as={Link} to='list-medicines'>
+                  Medicine
+                </Nav.Link>
+                <Nav.Link as={Link} to='list-bills'>
+                  Bills
+                </Nav.Link>
+                <NavDropdown title='Insurance'>
+                  <NavDropdown.Item as={Link} to='add-insurance'>
+                    Add Insurance
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='list-insurance'>
+                    List Insurance
+                  </NavDropdown.Item>
+                </NavDropdown>
+                <Nav.Link as={Link} to='list-test-reports'>
+                  Test Report
+                </Nav.Link>
+                <NavDropdown title={`${user.firstName} (${user.role})`}>
+                  <NavDropdown.Item onClick={logoutHandler}>logout</NavDropdown.Item>
+                </NavDropdown>
               </Nav>
             </Navbar.Collapse>
           </Container>

@@ -1,22 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
-
-const Rooms = [
-  {
-    id: '1',
-    wardName: '2',
-    roomNo: '101',
-    description: '',
-  },
-  {
-    id: '2',
-    wardName: '2',
-    roomNo: '101',
-    description: '',
-  },
-];
+import fetchAPI from '../utls/fetchAPI';
 
 const ListRoomsPage = () => {
+  const [rooms, setRooms] = useState<{ id: string; wardName: string; roomNo: string; description: string }[]>([]);
+
+  useEffect(() => {
+    fetchAPI('/rooms').then((resJson) => setRooms(resJson.data.rooms));
+  }, []);
+
   return (
     <Container>
       <Table striped bordered hover responsive className='mx-auto my-5'>
@@ -33,7 +25,7 @@ const ListRoomsPage = () => {
           </tr>
         </thead>
         <tbody>
-          {Rooms.map((room, i) => (
+          {rooms.map((room, i) => (
             <tr>
               <td>
                 <Form.Check />
