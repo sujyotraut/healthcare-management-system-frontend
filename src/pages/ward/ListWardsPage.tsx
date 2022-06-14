@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
+import fetchAPI from '../../utils/fetchAPI';
 
-const SCHEDULES = [{ doctorName: 'siefe', date: 'sefiehufhu', timing: 'efjoiefj', city: 'efi', address: 'efifjj' }];
+const ListWardsPage = () => {
+  const [wards, setWards] = useState<{ id: string; name: string; description: string }[]>([]);
 
-const ListStaffSChedulesPage = () => {
+  useEffect(() => {
+    fetchAPI('/wards').then((resJson) => setWards(resJson.data.wards));
+  }, []);
+
   return (
     <Container>
       <Table striped bordered hover responsive className='mx-auto my-5'>
@@ -13,26 +18,20 @@ const ListStaffSChedulesPage = () => {
               <Form.Check label='Select All' />
             </th>
             <th>#</th>
-            <th>Doctor Name</th>
-            <th>Timing</th>
-            <th>Date</th>
-            <th>City</th>
-            <th>Address</th>
+            <th>Name</th>
+            <th>Description</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {SCHEDULES.map((schedule, i) => (
+          {wards.map((ward, i) => (
             <tr>
               <td>
                 <Form.Check />
               </td>
               <td>{i + 1}</td>
-              <td>{schedule.doctorName}</td>
-              <td>{schedule.timing}</td>
-              <td>{schedule.date}</td>
-              <td>{schedule.city}</td>
-              <td>{schedule.address}</td>
+              <td>{ward.name}</td>
+              <td>{ward.description}</td>
               <td></td>
             </tr>
           ))}
@@ -42,4 +41,4 @@ const ListStaffSChedulesPage = () => {
   );
 };
 
-export default ListStaffSChedulesPage;
+export default ListWardsPage;

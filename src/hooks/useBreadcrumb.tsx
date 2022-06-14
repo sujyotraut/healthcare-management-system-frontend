@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/esm/Container';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const pathTitles = new Map([
+  ['/login', 'Login'],
   ['/register', 'Register'],
   ['/add-doctor', 'Doctor'],
   ['/list-doctors', 'Doctors List'],
@@ -23,9 +24,9 @@ const pathTitles = new Map([
 
 const useBreadcrumb = () => {
   const loc = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  if(loc.pathname === '/') return;
+  if (loc.pathname === '/') return;
 
   return (
     <Container className='border-bottom'>

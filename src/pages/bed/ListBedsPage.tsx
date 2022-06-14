@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
-import fetchAPI from '../utls/fetchAPI';
+import fetchAPI from '../../utils/fetchAPI';
 
 const ListBedsPage = () => {
   const [beds, setBeds] = useState<{ id: string; roomNo: string; bedNo: string; description: string }[]>([]);

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
-import fetchAPI from '../utls/fetchAPI';
+import fetchAPI from '../../utils/fetchAPI';
 
-const ListWardsPage = () => {
-  const [wards, setWards] = useState<{ id: string; name: string; description: string }[]>([]);
+const ListRoomsPage = () => {
+  const [rooms, setRooms] = useState<{ id: string; wardName: string; roomNo: string; description: string }[]>([]);
 
   useEffect(() => {
-    fetchAPI('/wards').then((resJson) => setWards(resJson.data.wards));
+    fetchAPI('/rooms').then((resJson) => setRooms(resJson.data.rooms));
   }, []);
 
   return (
@@ -18,20 +18,22 @@ const ListWardsPage = () => {
               <Form.Check label='Select All' />
             </th>
             <th>#</th>
-            <th>Name</th>
+            <th>Ward Name</th>
+            <th>Room No</th>
             <th>Description</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {wards.map((ward, i) => (
+          {rooms.map((room, i) => (
             <tr>
               <td>
                 <Form.Check />
               </td>
               <td>{i + 1}</td>
-              <td>{ward.name}</td>
-              <td>{ward.description}</td>
+              <td>{room.wardName}</td>
+              <td>{room.roomNo}</td>
+              <td>{room.description}</td>
               <td></td>
             </tr>
           ))}
@@ -41,4 +43,4 @@ const ListWardsPage = () => {
   );
 };
 
-export default ListWardsPage;
+export default ListRoomsPage;

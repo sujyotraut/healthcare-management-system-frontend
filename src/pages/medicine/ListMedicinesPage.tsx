@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
-import { MyContext } from '../App';
-import fetchAPI from '../utls/fetchAPI';
+import fetchAPI from '../../utils/fetchAPI';
 
 interface Medicine {
   id: string;
@@ -12,7 +11,7 @@ interface Medicine {
   description: string;
 }
 
-const ListMediciensPage = () => {
+const ListMedicinesPage = () => {
   const [medicines, setMedicines] = useState<Medicine[]>([]);
 
   useEffect(() => {
@@ -57,4 +56,4 @@ const ListMediciensPage = () => {
   );
 };
 
-export default ListMediciensPage;
+export default ListMedicinesPage;

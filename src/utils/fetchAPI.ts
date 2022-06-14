@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { API_BASE_URL } from '../config/config';
+const API_BASE_URL = 'http://localhost:4000';
 
 const fetchAPI = async (url: string, method: 'GET' | 'PUT' | 'POST' | 'DELETE' = 'GET', body?: object) => {
   const headers = new Headers();
@@ -7,8 +6,9 @@ const fetchAPI = async (url: string, method: 'GET' | 'PUT' | 'POST' | 'DELETE' =
   if (accessToken) headers.append('authorization', `Bearer ${accessToken}`);
 
   if (method === 'GET') {
-    const res = await fetch(API_BASE_URL + url, { method, headers });
-    return await res.json();
+    return await fetch(API_BASE_URL + url, { method, headers })
+      .then((value) => value.json())
+      .catch(() => ({ status: 'fail', message: 'An unexpected error occurred' }));
   }
 
   headers.append('Content-Type', 'application/json');
@@ -18,8 +18,9 @@ const fetchAPI = async (url: string, method: 'GET' | 'PUT' | 'POST' | 'DELETE' =
     body: JSON.stringify(body),
   };
 
-  const res = await fetch(API_BASE_URL + url, requestOptions);
-  return await res.json();
+  return await fetch(API_BASE_URL + url, requestOptions)
+    .then((value) => value.json())
+    .catch(() => ({ status: 'fail', message: 'An unexpected error occurred' }));
 };
 
 export default fetchAPI;

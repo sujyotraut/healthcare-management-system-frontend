@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
-import fetchAPI from '../utls/fetchAPI';
+import fetchAPI from '../../utils/fetchAPI';
 
 interface Doctor {
   firstName: string;

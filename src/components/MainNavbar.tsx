@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { MyContext, User } from '../App';
+import { MyContext } from '../App';
 
 const MainNavbar = () => {
-  console.log('render');
   const { user, setUser } = useContext(MyContext);
   const navigate = useNavigate();
+
   const logoutHandler = () => {
     localStorage.removeItem('accessToken');
     setUser(null);
@@ -203,56 +203,6 @@ const MainNavbar = () => {
                 </NavDropdown>
                 <Nav.Link as={Link} to='list-isurance'>
                   Insurance
-                </Nav.Link>
-                <NavDropdown title={`${user.firstName} (${user.role})`}>
-                  <NavDropdown.Item onClick={logoutHandler}>logout</NavDropdown.Item>
-                </NavDropdown>
-              </Nav>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
-      );
-    case 'patient':
-      return (
-        <Navbar bg='primary' variant='dark' expand='lg'>
-          <Container>
-            <Navbar.Brand as={Link} to='/'>
-              Healthcare Management System
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls='basic-navbar-nav' />
-            <Navbar.Collapse id='basic-navbar-nav'>
-              <Nav className='ms-auto'>
-                {/* <Nav.Link as={Link} to='/'>
-                  Home
-                </Nav.Link> */}
-                <Nav.Link as={Link} to='list-doctors'>
-                  Doctor
-                </Nav.Link>
-                <Nav.Link as={Link} to='list-schedules'>
-                  Doctor Timing
-                </Nav.Link>
-                <Nav.Link as={Link} to='list-appointments'>
-                  Appointments
-                </Nav.Link>
-                <Nav.Link as={Link} to='list-prescriptions'>
-                  Prescription
-                </Nav.Link>
-                <Nav.Link as={Link} to='list-medicines'>
-                  Medicine
-                </Nav.Link>
-                <Nav.Link as={Link} to='list-bills'>
-                  Bills
-                </Nav.Link>
-                <NavDropdown title='Insurance'>
-                  <NavDropdown.Item as={Link} to='add-insurance'>
-                    Add Insurance
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to='list-insurance'>
-                    List Insurance
-                  </NavDropdown.Item>
-                </NavDropdown>
-                <Nav.Link as={Link} to='list-test-reports'>
-                  Test Report
                 </Nav.Link>
                 <NavDropdown title={`${user.firstName} (${user.role})`}>
                   <NavDropdown.Item onClick={logoutHandler}>logout</NavDropdown.Item>

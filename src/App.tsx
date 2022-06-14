@@ -1,36 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
+import Container from 'react-bootstrap/Container';
+import Alert from 'react-bootstrap/esm/Alert';
 import { Route, Routes } from 'react-router-dom';
 import MainNavbar from './components/MainNavbar';
-import AddBedPage from './pages/AddBedPage';
-import AddDoctorPage from './pages/AddDoctorPage';
-import AddMedicinePage from './pages/AddMedicinePage';
-import AddRoomPage from './pages/AddRoomPage';
-import AddStaffPage from './pages/AddStaffPage';
-import AddWardPage from './pages/AddWardPage';
-import HomePage from './pages/HomePage';
-import ListDoctorsPage from './pages/ListDoctorsPage';
-import ListBedsPage from './pages/ListBedsPage';
-import ListStaffPage from './pages/ListStaffPage';
-import ListWardsPage from './pages/ListWardsPage';
-import LoginPage from './pages/LoginPage';
-import NotFoundPage from './pages/NotFoundPage';
-import RegisterPage from './pages/RegisterPage';
-import ListRoomsPage from './pages/ListRoomsPage';
-import ListMediciensPage from './pages/ListMediciensPage';
 import useBreadcrumb from './hooks/useBreadcrumb';
-import AddDoctorSchedulePage from './pages/AddDoctorSchedulePage';
-import ListDoctorSchedulesPage from './pages/ListDoctorSchedulesPage';
-
-import { createContext } from 'react';
-import { API_BASE_URL } from './config/config';
-import fetchAPI from './utls/fetchAPI';
-import Alert from 'react-bootstrap/esm/Alert';
-import { Container } from 'react-bootstrap';
-import ListInsurancePage from './pages/ListInsurancePage';
-import AddPrescriptionPage from './pages/AddPrescriptionPage';
-import ListPrescriptionPage from './pages/LIstPrescriptionPage';
-import AddInsurancePage from './pages/AddInsurancePage';
-import AddStaffSchedulePage from './pages/AddStaffSchdulePage';
+import LoginPage from './pages/auth/LoginPage';
+import RegisterPage from './pages/auth/RegisterPage';
+import AddBedPage from './pages/bed/AddBedPage';
+import ListBedsPage from './pages/bed/ListBedsPage';
+import AddDoctorPage from './pages/doctor/AddDoctorPage';
+import ListDoctorsPage from './pages/doctor/ListDoctorsPage';
+import HomePage from './pages/HomePage';
+import AddInsurancePage from './pages/insurance/AddInsurancePage';
+import ListInsurancePage from './pages/insurance/ListInsurancePage';
+import AddMedicinePage from './pages/medicine/AddMedicinePage';
+import ListMedicinesPage from './pages/medicine/ListMedicinesPage';
+import NotFoundPage from './pages/NotFoundPage';
+import AddRoomPage from './pages/room/AddRoomPage';
+import ListRoomsPage from './pages/room/ListRoomsPage';
+import AddStaffPage from './pages/staff/AddStaffPage';
+import ListStaffPage from './pages/staff/ListStaffPage';
+import AddWardPage from './pages/ward/AddWardPage';
+import ListWardsPage from './pages/ward/ListWardsPage';
+import fetchAPI from './utils/fetchAPI';
 
 export interface User {
   id: string;
@@ -59,12 +51,9 @@ function App() {
 
   useEffect(() => {
     const getUser = async () => {
-      const resJson = await fetchAPI('/me');
-      if (resJson.status === 'success') {
-        setUser(resJson.data);
-      } else {
-        setUser(null);
-      }
+      const resJson = await fetchAPI('/users/me');
+      if (resJson.status === 'success') setUser(resJson.data.me);
+      else setUser(null);
     };
 
     getUser();
@@ -93,38 +82,29 @@ function App() {
       {breadcrumb}
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path='login' element={<LoginPage />} />
-        <Route path='register' element={<RegisterPage />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/register' element={<RegisterPage />} />
 
-        <Route path='add-doctor' element={<AddDoctorPage />} />
-        <Route path='list-doctors' element={<ListDoctorsPage />} />
+        <Route path='/add-doctor' element={<AddDoctorPage />} />
+        <Route path='/list-doctors' element={<ListDoctorsPage />} />
 
-        <Route path='add-staff' element={<AddStaffPage />} />
-        <Route path='list-staff' element={<ListStaffPage />} />
+        <Route path='/add-staff' element={<AddStaffPage />} />
+        <Route path='/list-staff' element={<ListStaffPage />} />
 
-        <Route path='add-ward' element={<AddWardPage />} />
-        <Route path='list-wards' element={<ListWardsPage />} />
+        <Route path='/add-ward' element={<AddWardPage />} />
+        <Route path='/list-wards' element={<ListWardsPage />} />
 
-        <Route path='add-room' element={<AddRoomPage />} />
-        <Route path='list-rooms' element={<ListRoomsPage />} />
+        <Route path='/add-room' element={<AddRoomPage />} />
+        <Route path='/list-rooms' element={<ListRoomsPage />} />
 
-        <Route path='add-bed' element={<AddBedPage />} />
-        <Route path='list-beds' element={<ListBedsPage />} />
+        <Route path='/add-bed' element={<AddBedPage />} />
+        <Route path='/list-beds' element={<ListBedsPage />} />
 
-        <Route path='add-medicine' element={<AddMedicinePage />} />
-        <Route path='list-medicines' element={<ListMediciensPage />} />
+        <Route path='/add-medicine' element={<AddMedicinePage />} />
+        <Route path='/list-medicines' element={<ListMedicinesPage />} />
 
-        <Route path='add-insurance' element={<AddInsurancePage />} />
-        <Route path='list-insurance' element={<ListInsurancePage />} />
-
-        <Route path='add-prescription' element={<AddPrescriptionPage />} />
-        <Route path='list-prescriptions' element={<ListPrescriptionPage />} />
-
-        <Route path='add-doctor-schedule' element={<AddDoctorSchedulePage />} />
-        <Route path='list-doctor-schedules' element={<ListDoctorSchedulesPage />} />
-
-        <Route path='add-staff-schedule' element={<AddStaffSchedulePage />} />
-        <Route path='list-staff-schedules' element={<ListDoctorSchedulesPage />} />
+        <Route path='/add-insurance' element={<AddInsurancePage />} />
+        <Route path='/list-insurance' element={<ListInsurancePage />} />
 
         <Route path='*' element={<NotFoundPage />} />
       </Routes>

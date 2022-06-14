@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
-import { MyContext } from '../App';
-import fetchAPI from '../utls/fetchAPI';
+import { MyContext } from '../../App';
+import fetchAPI from '../../utils/fetchAPI';
 
 interface Insurance {
   id: string;
