@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
+import Doctor from '../../types/Doctor.types';
 import fetchAPI from '../../utils/fetchAPI';
-
-interface Doctor {
-  firstName: string;
-  lastName: string;
-  email: string;
-  contact: string;
-  dateOfBirth: string;
-  experience: string;
-  specilization: string;
-  qualification: string;
-}
 
 const ListDoctorsPage = () => {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
 
   useEffect(() => {
-    fetchAPI('/doctors').then((resJson) => setDoctors(resJson.data.doctors));
+    fetchAPI('/doctors').then((resJson) => {
+      if(resJson.status !== 'success') return setDoctors([]);
+      setDoctors(resJson.data.doctors);
+    });
   }, []);
 
   return (
@@ -34,7 +27,7 @@ const ListDoctorsPage = () => {
             <th>Email</th>
             <th>Contact No.</th>
             <th>DOB</th>
-            <th>Qualification</th>
+            <th>Qualifications</th>
             <th>Specialization</th>
             <th>Experience</th>
             <th>Action</th>
@@ -52,8 +45,8 @@ const ListDoctorsPage = () => {
               <td>{doctor.email}</td>
               <td>{doctor.contact}</td>
               <td>{doctor.dateOfBirth}</td>
-              <td>{doctor.qualification}</td>
-              <td>{doctor.specilization}</td>
+              <td>{doctor.qualifications}</td>
+              <td>{doctor.specialization}</td>
               <td>{doctor.experience}</td>
               <td></td>
             </tr>

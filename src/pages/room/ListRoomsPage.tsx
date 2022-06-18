@@ -6,7 +6,10 @@ const ListRoomsPage = () => {
   const [rooms, setRooms] = useState<{ id: string; wardName: string; roomNo: string; description: string }[]>([]);
 
   useEffect(() => {
-    fetchAPI('/rooms').then((resJson) => setRooms(resJson.data.rooms));
+    fetchAPI('/rooms').then((resJson) => {
+      if(resJson.status !== 'success') return setRooms([]);
+      setRooms(resJson.data.rooms);
+    });
   }, []);
 
   return (

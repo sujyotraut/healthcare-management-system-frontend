@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
 import fetchAPI from '../../utils/fetchAPI';
 
@@ -6,7 +6,10 @@ const ListBedsPage = () => {
   const [beds, setBeds] = useState<{ id: string; roomNo: string; bedNo: string; description: string }[]>([]);
 
   useEffect(() => {
-    fetchAPI('/beds').then((resJson) => setBeds(resJson.data.beds));
+    fetchAPI('/beds').then((resJson) => {
+      if (resJson.status !== 'success') return setBeds([]);
+      setBeds(resJson.data.beds);
+    });
   }, []);
 
   return (

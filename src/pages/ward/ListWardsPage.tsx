@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
 import fetchAPI from '../../utils/fetchAPI';
 
@@ -6,7 +6,10 @@ const ListWardsPage = () => {
   const [wards, setWards] = useState<{ id: string; name: string; description: string }[]>([]);
 
   useEffect(() => {
-    fetchAPI('/wards').then((resJson) => setWards(resJson.data.wards));
+    fetchAPI('/wards').then((resJson) => {
+      if (resJson.status !== 'success') return setWards([]);
+      setWards(resJson.data.wards);
+    });
   }, []);
 
   return (

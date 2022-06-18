@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
+import Staff from '../../types/Staff.types';
 import fetchAPI from '../../utils/fetchAPI';
-
-interface Staff {
-  firstName: string;
-  lastName: string;
-  email: string;
-  contact: string;
-  dateOfBirth: string;
-  experience: string;
-  qualification: string;
-}
 
 const ListStaffPage = () => {
   const [staffs, setStaffs] = useState<Staff[]>([]);
 
   useEffect(() => {
-    fetchAPI('/staffs').then((resJson) => setStaffs(resJson.data.staffs));
+    fetchAPI('/staffs').then((resJson) => {
+      if(resJson.status !== 'success') return setStaffs([]);
+      setStaffs(resJson.data.staffs);
+    });
   }, []);
 
   return (
@@ -33,7 +27,7 @@ const ListStaffPage = () => {
             <th>Email</th>
             <th>Contact No.</th>
             <th>DOB</th>
-            <th>Qualification</th>
+            <th>Qualifications</th>
             <th>Experience</th>
             <th>Action</th>
           </tr>
@@ -50,7 +44,7 @@ const ListStaffPage = () => {
               <td>{staff.email}</td>
               <td>{staff.contact}</td>
               <td>{staff.dateOfBirth}</td>
-              <td>{staff.qualification}</td>
+              <td>{staff.qualifications}</td>
               <td>{staff.experience}</td>
               <td></td>
             </tr>

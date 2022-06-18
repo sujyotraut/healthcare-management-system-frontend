@@ -1,13 +1,11 @@
-import { Field, FieldProps, Formik, FormikHelpers } from 'formik';
+import { FormikHelpers } from 'formik';
 import { useContext } from 'react';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/esm/Col';
 import Container from 'react-bootstrap/esm/Container';
-import Form from 'react-bootstrap/esm/Form';
-import Row from 'react-bootstrap/esm/Row';
 import { useNavigate } from 'react-router-dom';
-import { MyContext } from '../../App';
-import MyForm from '../../components/MyForm';
+import MyCustomForm from '../../components/MyCustomForm';
+import { UserContext } from '../../contexts/user.context';
+import useAlert from '../../hooks/useAlert';
+import { FieldType } from '../../types/MyCustomForm.types';
 import fetchAPI from '../../utils/fetchAPI';
 
 const fields = [
@@ -23,60 +21,46 @@ const fields = [
 
 const RegisterPage = () => {
   const navigate = useNavigate();
-  const { setUser, showAlert } = useContext(MyContext);
+  const { setUser } = useContext(UserContext);
+  const showAlert = useAlert();
 
-  const initialValues = {
-    firstName: '',
-    lastName: '',
-    username: '',
-    password: '',
-    email: '',
-    contact: '',
-    dateOfBirth: '',
-    city: '',
-    address: '',
-  };
+  const fields: Array<FieldType> = [
+    { name: 'firstName', label: 'First Name', type: 'text' },
+    { name: 'lastName', label: 'Last Name', type: 'text' },
+    { name: 'username', label: 'Username', type: 'text' },
+    { name: 'password', label: 'Password', type: 'password' },
+    { name: 'email', label: 'Email', type: 'email' },
+    { name: 'dateOfBirth', label: 'DOB', type: 'date' },
+    { name: 'contact', label: 'Contact', type: 'text' },
+    { name: 'city', label: 'City', type: 'text' },
+    { name: 'address', label: 'Address', type: 'textarea' },
+  ];
 
-  const handleSubmit = async (values: typeof initialValues, helpers: FormikHelpers<typeof initialValues>) => {
+  const handleSubmit = async (values: any, helpers: FormikHelpers<any>) => {
     const resJson = await fetchAPI('/users/register-patient', 'POST', values);
+    if (resJson.status !== 'success') return showAlert(resJson.message);
+    const accessToken = resJson.data.accessToken;
+    localStorage.setItem('accessToken', accessToken);
 
-    if (resJson.status === 'success') {
-      const accessToken = resJson.data.accessToken;
-      localStorage.setItem('accessToken', accessToken);
-      const userJson = await fetchAPI('/users/me');
-      setUser(userJson.data.me);
-      navigate('/');
-    } else {
-      showAlert(resJson.message);
+    const userJson = await fetchAPI('/users/me');
+    if (userJson.status !== 'success') {
+      localStorage.removeItem('accessToken');
+      return setUser(null);
     }
+
+    setUser(userJson.data.me);
+    navigate('/');
   };
 
   return (
     <Container>
-      <Formik onSubmit={handleSubmit} initialValues={initialValues}>
-        {({ isSubmitting }) => (
-          <MyForm>
-            <h3 className='mb-4'>Register</h3> <hr />
-            <Row className='gy-2' xxs={1} xs={1} sm={1} md={1} lg={2} xl={2} xxl={2}>
-              {fields.map(({ label, ...other }) => (
-                <Col key={other.name} as={Form.Group}>
-                  <Form.Label>{label}</Form.Label>
-                  <Field as={Form.Control} {...other} required />
-                </Col>
-              ))}
-              <Col as={Form.Group} xxs={12} xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                <Form.Label>Address</Form.Label>
-                <Field name='address'>
-                  {({ field }: FieldProps) => <Form.Control as='textarea' required {...field} />}
-                </Field>
-              </Col>
-            </Row>
-            <Button className='mt-4' variant='primary' type='submit' disabled={isSubmitting}>
-              Register
-            </Button>
-          </MyForm>
-        )}
-      </Formik>
+      <MyCustomForm
+        fields={fields}
+        formTitle='Register'
+        onSubmit={handleSubmit}
+        submitBtnLabel='Register'
+        spanLastFieldToFullWidth={true}
+      />
     </Container>
   );
 };

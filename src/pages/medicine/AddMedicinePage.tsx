@@ -1,69 +1,35 @@
-import { Field, FieldProps, Formik, FormikHelpers } from 'formik';
-import { useContext } from 'react';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/esm/Col';
+import { FormikHelpers } from 'formik';
 import Container from 'react-bootstrap/esm/Container';
-import Form from 'react-bootstrap/esm/Form';
-import Row from 'react-bootstrap/esm/Row';
-import { useNavigate } from 'react-router-dom';
-import { MyContext } from '../../App';
-import MyForm from '../../components/MyForm';
+import MyCustomForm from '../../components/MyCustomForm';
+import useAlert from '../../hooks/useAlert';
+import { FieldType } from '../../types/MyCustomForm.types';
 import fetchAPI from '../../utils/fetchAPI';
 
-const fields = [
-  { label: 'Name', name: 'name', type: 'text' },
-  { label: 'Company Name', name: 'companyName', type: 'text' },
-  { label: 'Price', name: 'price', type: 'number' },
-  { label: 'Status', name: 'status', type: 'text' },
-];
-
 const AddMedicinePage = () => {
-  const navigate = useNavigate();
-  const { setUser, showAlert } = useContext(MyContext);
+  const showAlert = useAlert();
 
-  const initialValues = {
-    name: '',
-    companyName: '',
-    price: 0,
-    status: '',
-    description: '',
-  };
+  const fields: Array<FieldType> = [
+    { name: 'name', label: 'Name', type: 'text' },
+    { name: 'companyName', label: 'Company Name', type: 'text' },
+    { name: 'price', label: 'Price', type: 'number' },
+    { name: 'status', label: 'Status', type: 'text' },
+    { name: 'description', label: 'Description', type: 'textarea' },
+  ];
 
-  const handleSubmit = async (values: typeof initialValues, helpers: FormikHelpers<typeof initialValues>) => {
+  const handleSubmit = async (values: any, helpers: FormikHelpers<any>) => {
     const resJson = await fetchAPI('/medicines', 'POST', values);
-
-    if (resJson.status === 'success') {
-      showAlert('Medicine is added to the list');
-      helpers.resetForm();
-    } else showAlert(resJson.message);
+    showAlert('Medicine is added to the list', resJson, helpers.resetForm);
   };
 
   return (
     <Container>
-      <Formik onSubmit={handleSubmit} initialValues={initialValues}>
-        {({ isSubmitting }) => (
-          <MyForm>
-            <h3 className='mb-4'>Medicine</h3> <hr />
-            <Row className='gy-2' xxs={1} xs={1} sm={1} md={1} lg={2} xl={2} xxl={2}>
-              {fields.map(({ label, ...other }) => (
-                <Col key={other.name} as={Form.Group}>
-                  <Form.Label>{label}</Form.Label>
-                  <Field as={Form.Control} {...other} required />
-                </Col>
-              ))}
-              <Col as={Form.Group} xxs={12} xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                <Form.Label>Description</Form.Label>
-                <Field name='description'>
-                  {({ field }: FieldProps) => <Form.Control as='textarea' required {...field} />}
-                </Field>
-              </Col>
-            </Row>
-            <Button className='mt-4' variant='primary' type='submit' disabled={isSubmitting}>
-              Save
-            </Button>
-          </MyForm>
-        )}
-      </Formik>
+      <MyCustomForm
+        formTitle='Medicine'
+        fields={fields}
+        onSubmit={handleSubmit}
+        submitBtnLabel='Add'
+        spanLastFieldToFullWidth={true}
+      />
     </Container>
   );
 };

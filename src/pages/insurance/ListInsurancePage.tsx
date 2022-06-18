@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
-import { MyContext } from '../../App';
 import fetchAPI from '../../utils/fetchAPI';
 
 interface Insurance {
@@ -16,7 +15,10 @@ const ListInsurancePage = () => {
   const [insurances, setInsurances] = useState<Insurance[]>([]);
 
   useEffect(() => {
-    fetchAPI('/insurances').then((resJson) => setInsurances(resJson.data.insurances));
+    fetchAPI('/insurances').then((resJson) => {
+      if (resJson.status !== 'success') return setInsurances([]);
+      setInsurances(resJson.data.insurances);
+    });
   }, []);
 
   return (

@@ -1,6 +1,8 @@
+import JSONResponse from '../types/JSONResponse.types';
 const API_BASE_URL = 'http://localhost:4000';
 
-const fetchAPI = async (url: string, method: 'GET' | 'PUT' | 'POST' | 'DELETE' = 'GET', body?: object) => {
+type Method = 'GET' | 'PUT' | 'POST' | 'DELETE';
+const fetchAPI = async (url: string, method: Method = 'GET', body?: object): Promise<JSONResponse> => {
   const headers = new Headers();
   const accessToken = localStorage.getItem('accessToken');
   if (accessToken) headers.append('authorization', `Bearer ${accessToken}`);

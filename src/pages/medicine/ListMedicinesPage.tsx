@@ -15,7 +15,10 @@ const ListMedicinesPage = () => {
   const [medicines, setMedicines] = useState<Medicine[]>([]);
 
   useEffect(() => {
-    fetchAPI('/medicines').then((resJson) => setMedicines(resJson.data.medicines));
+    fetchAPI('/medicines').then((resJson) => {
+      if(resJson.status !== 'success') return setMedicines([]);
+      setMedicines(resJson.data.medicines);
+    });
   }, []);
 
   return (

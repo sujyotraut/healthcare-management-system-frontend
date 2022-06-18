@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { MyContext } from '../App';
+import { UserContext } from '../contexts/user.context';
 
 const MainNavbar = () => {
-  const { user, setUser } = useContext(MyContext);
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const logoutHandler = () => {
