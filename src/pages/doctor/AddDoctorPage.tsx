@@ -1,13 +1,11 @@
-import { FormikHelpers } from 'formik';
 import Container from 'react-bootstrap/esm/Container';
 import MyCustomForm from '../../components/MyCustomForm';
-import useAlert from '../../hooks/useAlert';
+import useAddResource from '../../hooks/useAddResource';
 import Doctor from '../../types/Doctor.types';
 import { FieldType } from '../../types/MyCustomForm.types';
-import fetchAPI from '../../utils/fetchAPI';
 
 const AddDoctorPage = (props: { doctor?: Doctor }) => {
-  const showAlert = useAlert();
+  const { addResource } = useAddResource('/doctors', 'Doctor');
 
   const fields: Array<FieldType> = [
     { name: 'firstName', label: 'First Name', type: 'text' },
@@ -22,14 +20,9 @@ const AddDoctorPage = (props: { doctor?: Doctor }) => {
     { name: 'specialization', label: 'Specialization', type: 'text' },
   ];
 
-  const handleSubmit = async (values: any, helpers: FormikHelpers<any>) => {
-    const resJson = await fetchAPI('/doctors', 'POST', values);
-    showAlert('Doctor is added to the list', resJson, helpers.resetForm);
-  };
-
   return (
     <Container>
-      <MyCustomForm formTitle='Doctor' fields={fields} onSubmit={handleSubmit} submitBtnLabel='Add' />
+      <MyCustomForm formTitle='Doctor' fields={fields} onSubmit={addResource} submitBtnLabel='Add' />
     </Container>
   );
 };

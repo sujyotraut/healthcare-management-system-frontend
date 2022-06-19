@@ -1,9 +1,11 @@
-import React from 'react'
+import Container from 'react-bootstrap/Container';
 
 const ExperimentalComponent = () => {
   return (
-    <div>ExperimentalComponent</div>
-  )
-}
+    <Container>
+      <div>ExperimentalComponent</div>
+    </Container>
+  );
+};
 
-export default ExperimentalComponent
+export default ExperimentalComponent;

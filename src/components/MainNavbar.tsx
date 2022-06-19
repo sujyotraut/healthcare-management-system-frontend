@@ -1,17 +1,9 @@
-import { useContext } from 'react';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import { UserContext } from '../contexts/user.context';
+import { Link } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 
 const MainNavbar = () => {
-  const { user, setUser } = useContext(UserContext);
-  const navigate = useNavigate();
-
-  const logoutHandler = () => {
-    localStorage.removeItem('accessToken');
-    setUser(null);
-    navigate('/');
-  };
+  const { user, logout } = useAuth();
 
   if (!user) {
     return (
@@ -111,7 +103,7 @@ const MainNavbar = () => {
                   Insurance
                 </Nav.Link>
                 <NavDropdown title={`${user.firstName} (${user.role})`}>
-                  <NavDropdown.Item onClick={logoutHandler}>logout</NavDropdown.Item>
+                  <NavDropdown.Item onClick={logout}>logout</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>
@@ -146,7 +138,7 @@ const MainNavbar = () => {
                   Test Report
                 </Nav.Link>
                 <NavDropdown title={`${user.firstName} (${user.role})`}>
-                  <NavDropdown.Item onClick={logoutHandler}>logout</NavDropdown.Item>
+                  <NavDropdown.Item onClick={logout}>logout</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>
@@ -205,7 +197,7 @@ const MainNavbar = () => {
                   Insurance
                 </Nav.Link>
                 <NavDropdown title={`${user.firstName} (${user.role})`}>
-                  <NavDropdown.Item onClick={logoutHandler}>logout</NavDropdown.Item>
+                  <NavDropdown.Item onClick={logout}>logout</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>
@@ -255,7 +247,7 @@ const MainNavbar = () => {
                   Test Report
                 </Nav.Link>
                 <NavDropdown title={`${user.firstName} (${user.role})`}>
-                  <NavDropdown.Item onClick={logoutHandler}>logout</NavDropdown.Item>
+                  <NavDropdown.Item onClick={logout}>logout</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>

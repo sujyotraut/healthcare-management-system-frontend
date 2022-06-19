@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
-import fetchAPI from '../../utils/fetchAPI';
+import useFetchAPI from '../../hooks/useFetchAPI';
 
 const ListWardsPage = () => {
   const [wards, setWards] = useState<{ id: string; name: string; description: string }[]>([]);
+  const { fetchAPI } = useFetchAPI();
 
   useEffect(() => {
     fetchAPI('/wards').then((resJson) => {

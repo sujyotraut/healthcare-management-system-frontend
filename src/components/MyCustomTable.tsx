@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
+import useFetchAPI from '../hooks/useFetchAPI';
 import Doctor from '../types/Doctor.types';
-import fetchAPI from '../utils/fetchAPI';
 
 const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 function generateString(length: number) {
@@ -20,6 +20,7 @@ const MyCustomTable = () => {
   const [selectAll, setSelectAll] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [refetch, setRefetch] = useState('');
+  const { fetchAPI } = useFetchAPI();
 
   useEffect(() => {
     fetchAPI('/doctors').then((resJson) => {
@@ -93,7 +94,9 @@ const MyCustomTable = () => {
               <td>{doctor.firstName}</td>
               <td>{doctor.lastName}</td>
               <td>{doctor.email}</td>
-              <td><Button>Edit</Button></td>
+              <td>
+                <Button>Edit</Button>
+              </td>
             </tr>
           ))}
         </tbody>

@@ -8,6 +8,7 @@ export interface FailResponse {
   message: string;
 }
 
-type JSONResponse = SuccessResponse | FailResponse;
+export type Method = 'GET' | 'PUT' | 'POST' | 'DELETE';
 
+type JSONResponse = SuccessResponse | FailResponse;
 export default JSONResponse;

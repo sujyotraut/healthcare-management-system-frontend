@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
+import useFetchAPI from '../../hooks/useFetchAPI';
 import Staff from '../../types/Staff.types';
-import fetchAPI from '../../utils/fetchAPI';
 
 const ListStaffPage = () => {
   const [staffs, setStaffs] = useState<Staff[]>([]);
+  const { fetchAPI } = useFetchAPI();
 
   useEffect(() => {
     fetchAPI('/staffs').then((resJson) => {
-      if(resJson.status !== 'success') return setStaffs([]);
+      if (resJson.status !== 'success') return setStaffs([]);
       setStaffs(resJson.data.staffs);
     });
   }, []);

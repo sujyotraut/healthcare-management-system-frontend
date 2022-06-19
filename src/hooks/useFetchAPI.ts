@@ -1,7 +1,6 @@
-import JSONResponse from '../types/JSONResponse.types';
+import JSONResponse, { Method } from '../types/useFetch.types';
 const API_BASE_URL = 'http://localhost:4000';
 
-type Method = 'GET' | 'PUT' | 'POST' | 'DELETE';
 const fetchAPI = async (url: string, method: Method = 'GET', body?: object): Promise<JSONResponse> => {
   const headers = new Headers();
   const accessToken = localStorage.getItem('accessToken');
@@ -25,4 +24,6 @@ const fetchAPI = async (url: string, method: Method = 'GET', body?: object): Pro
     .catch(() => ({ status: 'fail', message: 'An unexpected error occurred' }));
 };
 
-export default fetchAPI;
+const useFetchAPI = () => ({ fetchAPI });
+
+export default useFetchAPI;

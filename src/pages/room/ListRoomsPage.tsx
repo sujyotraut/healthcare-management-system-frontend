@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
-import fetchAPI from '../../utils/fetchAPI';
+import useFetchAPI from '../../hooks/useFetchAPI';
 
 const ListRoomsPage = () => {
   const [rooms, setRooms] = useState<{ id: string; wardName: string; roomNo: string; description: string }[]>([]);
+  const { fetchAPI } = useFetchAPI();
 
   useEffect(() => {
     fetchAPI('/rooms').then((resJson) => {
-      if(resJson.status !== 'success') return setRooms([]);
+      if (resJson.status !== 'success') return setRooms([]);
       setRooms(resJson.data.rooms);
     });
   }, []);

@@ -1,12 +1,10 @@
-import { FormikHelpers } from 'formik';
 import Container from 'react-bootstrap/esm/Container';
 import MyCustomForm from '../../components/MyCustomForm';
-import useAlert from '../../hooks/useAlert';
+import useAddResource from '../../hooks/useAddResource';
 import { FieldType } from '../../types/MyCustomForm.types';
-import fetchAPI from '../../utils/fetchAPI';
 
 const AddStaffPage = () => {
-  const showAlert = useAlert();
+  const { addResource } = useAddResource('/staff', 'Staff');
 
   const fields: Array<FieldType> = [
     { name: 'firstName', label: 'First Name', type: 'text' },
@@ -20,14 +18,9 @@ const AddStaffPage = () => {
     { name: 'qualifications', label: 'Qualifications', type: 'text' },
   ];
 
-  const handleSubmit = async (values: any, helpers: FormikHelpers<any>) => {
-    const resJson = await fetchAPI('/staff', 'POST', values);
-    showAlert('Staff is added to the list', resJson, helpers.resetForm);
-  };
-
   return (
     <Container>
-      <MyCustomForm formTitle='Staff' fields={fields} onSubmit={handleSubmit} submitBtnLabel='Add' />
+      <MyCustomForm formTitle='Staff' fields={fields} onSubmit={addResource} submitBtnLabel='Add' />
     </Container>
   );
 };

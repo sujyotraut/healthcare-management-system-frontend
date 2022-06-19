@@ -1,3 +1,4 @@
+import React from 'react'
 import Breadcrumb from 'react-bootstrap/esm/Breadcrumb';
 import Container from 'react-bootstrap/esm/Container';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -17,16 +18,13 @@ const pathTitles = new Map([
   ['/list-beds', 'Beds List'],
   ['/add-medicine', 'Medicine'],
   ['/list-medicines', 'Medicines List'],
-  ['/add-doctor-schedule', 'Schedule'],
-  ['/list-doctor-schedules', 'Schedules List'],
-  ['/list-prescriptions', 'Prescriptions List'],
 ]);
 
-const useBreadcrumb = () => {
+const MyCustomBreadcrumb = () => {
   const loc = useLocation();
   const navigate = useNavigate();
 
-  if (loc.pathname === '/') return;
+  if (loc.pathname === '/') return <></>;
 
   return (
     <Container className='border-bottom'>
@@ -36,6 +34,6 @@ const useBreadcrumb = () => {
       </Breadcrumb>
     </Container>
   );
-};
+}
 
-export default useBreadcrumb;
+export default MyCustomBreadcrumb

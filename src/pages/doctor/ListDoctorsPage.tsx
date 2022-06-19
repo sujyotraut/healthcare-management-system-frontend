@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
+import useFetchAPI from '../../hooks/useFetchAPI';
 import Doctor from '../../types/Doctor.types';
-import fetchAPI from '../../utils/fetchAPI';
 
 const ListDoctorsPage = () => {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const { fetchAPI } = useFetchAPI();
 
   useEffect(() => {
     fetchAPI('/doctors').then((resJson) => {
-      if(resJson.status !== 'success') return setDoctors([]);
+      if (resJson.status !== 'success') return setDoctors([]);
       setDoctors(resJson.data.doctors);
     });
   }, []);
