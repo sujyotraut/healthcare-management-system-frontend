@@ -1,115 +1,136 @@
 import { useEffect, useState } from 'react';
-import { Button, Container, Form } from 'react-bootstrap';
-import Table from 'react-bootstrap/Table';
-import useFetchAPI from '../hooks/useFetchAPI';
-import Doctor from '../types/Doctor.types';
+import BootstrapTable, { ColumnDescription, TableChangeHandler } from 'react-bootstrap-table-next';
+import paginationFactory from 'react-bootstrap-table2-paginator';
+// @ts-ignore
+import cellEditFactory from 'react-bootstrap-table2-editor';
+import filterFactory from 'react-bootstrap-table2-filter';
+import Container from 'react-bootstrap/Container';
 
-const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-function generateString(length: number) {
-  let result = ' ';
-  const charactersLength = characters.length;
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-}
-
-const MyCustomTable = () => {
-  const [doctors, setDoctors] = useState<Array<Doctor>>([]);
-  const [selected, setSelected] = useState<Array<string>>([]);
-  const [selectAll, setSelectAll] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [refetch, setRefetch] = useState('');
-  const { fetchAPI } = useFetchAPI();
+const MyCustomTable = ({
+  columns,
+  remoteDataUrl,
+  paginationOptions,
+  defaultSort = { dataField: 'firstName', order: 'asc' },
+}: PropTypes) => {
+  const [data, setData] = useState<Data[]>([]);
+  const [pageState, setPageState] = useState({
+    page: paginationOptions?.currentPage || 1,
+    size: paginationOptions?.pageSize || 5,
+    total: 0,
+  });
 
   useEffect(() => {
-    fetchAPI('/doctors').then((resJson) => {
-      if (resJson.status !== 'success') return setDoctors([]);
-      setDoctors(resJson.data.doctors.sort((a: Doctor, b: Doctor) => a.id.localeCompare(b.id)));
-    });
-  }, [refetch]);
+    getData(
+      `${remoteDataUrl}?_page=${pageState.page}&_limit=${pageState.size}&_sort=${defaultSort.dataField}&_order=${defaultSort.order}`
+    );
+  }, []);
 
-  useEffect(() => {
-    if (selected.length === 0) return setSelectAll(false);
-    if (selected.length === doctors.length) return setSelectAll(true);
-  }, [selected]);
-
-  const handleDelete = () => {
-    if (selected.length === 0) return;
-    setIsDeleting(true);
-    fetchAPI(`/doctors?ids=${selected}`, 'DELETE')
-      .then(() => {
-        setSelected([]);
-        setRefetch(generateString(5));
+  const getData = (url: string) => {
+    fetch(url)
+      .then((response) => {
+        const total = response.headers.get('x-total-count') || '0';
+        setPageState((oldPage) => ({ ...oldPage, total: parseInt(total) }));
+        return response.json();
       })
-      .finally(() => setIsDeleting(false));
+      .then((json) => setData(json));
   };
 
-  const handleDeleteAll = () => {
-    setIsDeleting(true);
-    fetchAPI(`/doctors`, 'DELETE')
-      .then(() => {
-        setSelected([]);
-        setRefetch(generateString(5));
-      })
-      .finally(() => setIsDeleting(false));
+  const updateData = (url: string, data: Data, fetchUrl: string) => {
+    fetch(url, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    })
+      .then((response) => response.json())
+      .then((json) => getData(fetchUrl));
   };
 
-  const selectAllDeselectAll: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    const checked = e.currentTarget.checked;
-    setSelected(checked ? [...doctors.map((doc) => doc.id)] : []);
+  const deleteData = (url: string, fetchUrl: string) => {
+    fetch(url, { method: 'DELETE' })
+      .then((response) => response.json())
+      .then((json) => getData(fetchUrl));
   };
 
-  const selectDeselect: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    const id = e.currentTarget.id;
-    const checked = e.currentTarget.checked;
-    setSelected((prevSelected) => {
-      if (checked) return [...prevSelected, id];
-      return [...prevSelected.filter((value) => value !== id)];
-    });
+  const tableChangeHandler: TableChangeHandler<any> = (
+    type,
+    { data, cellEdit, sortField, sortOrder, page, sizePerPage, filters }
+  ) => {
+    let url = `${remoteDataUrl}?_page=${page}&_limit=${sizePerPage}&_sort=${sortField}&_order=${sortOrder}`;
+    for (const key in filters) url += `&${key}=${filters[key].filterVal}`;
+    setPageState((oldPage) => ({ ...oldPage, page: page, size: sizePerPage }));
+    switch (type) {
+      case 'sort':
+        getData(url);
+        break;
+      case 'pagination':
+        getData(url);
+        break;
+      case 'cellEdit':
+        const { rowId, dataField, newValue } = cellEdit;
+        const row = data.find((row) => row.id === rowId);
+        row[dataField] = newValue;
+        updateData(`${remoteDataUrl}/${rowId}`, row, url);
+        break;
+      case 'filter':
+        getData(url);
+        break;
+    }
   };
 
   return (
     <Container>
-      <Table hover striped bordered>
-        <thead>
-          <tr>
-            <th>
-              <Form.Check checked={selectAll} onChange={selectAllDeselectAll} label='Select All' />
-            </th>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {doctors.map((doctor, i) => (
-            <tr key={doctor.id}>
-              <td>
-                <Form.Check id={doctor.id} checked={selected.includes(doctor.id)} onChange={selectDeselect} />
-              </td>
-              <td>{i}</td>
-              <td>{doctor.firstName}</td>
-              <td>{doctor.lastName}</td>
-              <td>{doctor.email}</td>
-              <td>
-                <Button>Edit</Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-      <Button onClick={handleDelete} disabled={isDeleting}>
-        Delete
-      </Button>
-      <Button onClick={handleDeleteAll} disabled={isDeleting}>
-        Delete All
-      </Button>
-      <div>{JSON.stringify(selected)}</div>
+      <BootstrapTable
+        remote
+        bootstrap4
+        keyField='id'
+        data={data}
+        columns={columns}
+        selectRow={{
+          mode: 'checkbox',
+          onSelect(row, isSelected, rowIndex, e) {
+            console.log(`${JSON.stringify(row)}`);
+          },
+        }}
+        defaultSorted={[defaultSort]}
+        onTableChange={tableChangeHandler}
+        cellEdit={cellEditFactory({ mode: 'dbclick' })}
+        filter={filterFactory()}
+        pagination={
+          paginationOptions &&
+          paginationFactory({
+            showTotal: true,
+            page: pageState.page,
+            sizePerPage: pageState.size,
+            totalSize: pageState.total,
+          })
+        }
+      />
     </Container>
   );
 };
+
+interface Data {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
+interface PaginationOptions {
+  currentPage: number;
+  pageSize: number;
+}
+
+interface DefaultSort {
+  dataField: string;
+  order: 'asc' | 'desc';
+}
+
+interface PropTypes {
+  columns: ColumnDescription[];
+  remoteDataUrl: string;
+  paginationOptions?: PaginationOptions;
+  defaultSort?: DefaultSort;
+}
 
 export default MyCustomTable;
